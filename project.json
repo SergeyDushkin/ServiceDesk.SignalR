@@ -1,0 +1,64 @@
+{
+  "version": "1.0.0-*",
+  "name": "ServiceDesk.SignalR",
+  "title": "ServiceDesk.SignalR",
+  "authors": ["SergeyDushkin"],
+  "buildOptions": {
+    "debugType": "portable",
+    "emitEntryPoint": true
+  },
+
+  "packOptions": {
+    "projectUrl": "https://github.com/SergeyDushkin/ServiceDesk.SignalR",
+    "packageType": "DotnetCliTool"
+  },
+
+  "dependencies": {
+    "Autofac": "4.2.1",
+    "Autofac.Extensions.DependencyInjection": "4.0.0",
+    "Microsoft.AspNetCore.Authentication.JwtBearer": "1.1.0",
+    "Microsoft.AspNetCore.Authorization": "1.0.0",
+    "Microsoft.AspNetCore.Cors": "1.1.0",
+    "Microsoft.AspNetCore.Hosting": "1.1.0",
+    "Microsoft.AspNetCore.Owin": "1.1.0",
+    "Microsoft.AspNetCore.Server.Kestrel": "1.1.0",
+    "Microsoft.AspNetCore.SignalR": "1.0.0-t00388f5fa",
+    "Microsoft.Extensions.Configuration.EnvironmentVariables": "1.1.0",
+    "Microsoft.Extensions.Configuration.FileExtensions": "1.1.0",
+    "Microsoft.Extensions.Configuration.Json": "1.1.0",
+    
+    "NETStandard.Library": "1.6.1",
+    "NLog.Extensions.Logging": "1.0.0-*",
+    "Polly": "5.0.1-v5-0-alpha0001",
+    "RawRabbit": "1.10.3",
+    "RawRabbit.vNext": "1.10.3",
+    "System.Runtime.Extensions": "4.3.0",
+    
+    //"Exceptionless": "4.0.1922",
+    //"Humanizer.Core": "2.1.0",
+    //"jose-jwt": "2.1.0",
+    //"Lockbox.Client": "1.0.0",
+    
+    "Coolector.Common": "1.0.*",
+    "ServiceDesk.Common": "1.0.*"
+  },
+
+  "frameworks": {
+    "netcoreapp1.1": {
+      "dependencies": {
+        "Microsoft.NETCore.App": {
+          "type": "platform",
+          "version": "1.1.0"
+        }
+      },
+      "imports": "dnxcore50"
+    }
+  },
+
+	"publishOptions": {
+		"include": [
+			"nlog.config",
+			"appsettings.json"
+		]
+	}
+}
