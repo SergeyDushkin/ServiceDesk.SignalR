@@ -4,16 +4,21 @@ using Humanizer;
 using Microsoft.AspNetCore.SignalR;
 using servicedesk.Common.Events;
 using servicedesk.SignalR.Hubs;
+using NLog;
+using Microsoft.AspNetCore.SignalR.Infrastructure;
 
 namespace servicedesk.SignalR.Services
 {
     public class StatusSignalRService : IStatusSignalRService
     {
+        private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
         private readonly IHubContext<ServiceDeskHub> _hubContext;
+        private readonly IHubContext _context;
 
-        public StatusSignalRService(IHubContext<ServiceDeskHub> hubContext)
+        public StatusSignalRService(IHubContext<ServiceDeskHub> hubContext, IConnectionManager connectionManager)
         {
             _hubContext = hubContext;
+            _context = connectionManager.GetHubContext<ServiceDeskHub>();
         }
 
         public async Task PublishStatusSetAsync(NextStatusSet @event)
@@ -27,6 +32,9 @@ namespace servicedesk.SignalR.Services
             };
 
             await _hubContext.Clients.All.InvokeAsync(GetEventName(@event), message);
+            await _context.Clients.All.nextstatusset(message);
+
+            Logger.Debug($"Publish: {GetEventName(@event)}");
         }
 
         public async Task PublishStatusRejectedAsync(SetNewStatusRejected @event)
@@ -40,6 +48,9 @@ namespace servicedesk.SignalR.Services
             };
             
             await _hubContext.Clients.All.InvokeAsync(GetEventName(@event), message);
+            await _context.Clients.All.setnewstatusrejected(message);
+
+            Logger.Debug($"Publish: {GetEventName(@event)}");
         }
 
         private string GetEventName(IEvent @event) 

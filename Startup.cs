@@ -52,9 +52,13 @@ namespace servicedesk.SignalR
 
         public IServiceProvider ConfigureServices(IServiceCollection services)
         {
-            services.AddRouting();
+            //services.AddRouting();
             services.AddCors();
-            services.AddSignalR();
+            //services.AddSignalR();
+            services.AddSignalR(options =>
+            {
+                options.Hubs.EnableDetailedErrors = true;
+            });
 
             var assembly = Assembly.GetEntryAssembly();
             var builder = new ContainerBuilder();
@@ -66,7 +70,7 @@ namespace servicedesk.SignalR
             builder.RegisterType<Handler>().As<IHandler>();
             builder.RegisterType<StatusSignalRService>().As<IStatusSignalRService>();
 
-            builder.RegisterType<JwtTokenHandler>().As<IJwtTokenHandler>();
+            //builder.RegisterType<JwtTokenHandler>().As<IJwtTokenHandler>();
 
             LifetimeScope = builder.Build().BeginLifetimeScope();
             //TODO: get rid of static token handler after update signalr to newer version
@@ -84,7 +88,11 @@ namespace servicedesk.SignalR
                 .AllowAnyMethod()
                 .AllowAnyOrigin()
                 .AllowCredentials());
-            app.UseSignalR(builder => builder.MapHub<ServiceDeskHub>("/hub"));
+
+            app.UseWebSockets();
+            app.UseSignalR("/hub");
+
+            //app.UseSignalR(builder => builder.MapHub<ServiceDeskHub>("/hub"));
 
             appLifeTime.ApplicationStopped.Register(() => LifetimeScope.Dispose());
         }
