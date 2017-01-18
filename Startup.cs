@@ -90,7 +90,7 @@ namespace servicedesk.SignalR
             ILoggerFactory loggerFactory, IApplicationLifetime appLifeTime)
         {
             loggerFactory.AddNLog();
-            //env.ConfigureNLog("nlog.config");
+            loggerFactory.ConfigureNLog("nlog.config");
 
             app.UseCors("corsGlobalPolicy");
 
