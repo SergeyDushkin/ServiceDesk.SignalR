@@ -1,5 +1,4 @@
 using System.Threading.Tasks;
-using Coolector.Common.Security;
 using Microsoft.AspNetCore.SignalR;
 using Microsoft.AspNetCore.SignalR.Hubs;
 using NLog;

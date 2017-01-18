@@ -95,7 +95,11 @@ namespace servicedesk.SignalR
             app.UseCors("corsGlobalPolicy");
 
             app.UseWebSockets();
+            
+            app.UseSignalR<RawConnection>("/signalr");
             app.UseSignalR();
+
+            //app.UseSignalR("/hub", typeof(ServiceDeskHub));
 
             //app.UseSignalR(builder => builder.MapHub<ServiceDeskHub>("/hub"));
 
