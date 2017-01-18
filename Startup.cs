@@ -90,7 +90,7 @@ namespace servicedesk.SignalR
             ILoggerFactory loggerFactory, IApplicationLifetime appLifeTime)
         {
             loggerFactory.AddNLog();
-            env.ConfigureNLog("nlog.config");
+            //env.ConfigureNLog("nlog.config");
 
             app.UseCors("corsGlobalPolicy");
 
@@ -100,7 +100,6 @@ namespace servicedesk.SignalR
             app.UseSignalR();
 
             //app.UseSignalR("/hub", typeof(ServiceDeskHub));
-
             //app.UseSignalR(builder => builder.MapHub<ServiceDeskHub>("/hub"));
 
             appLifeTime.ApplicationStopped.Register(() => LifetimeScope.Dispose());

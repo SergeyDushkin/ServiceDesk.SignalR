@@ -11,8 +11,8 @@ namespace servicedesk.SignalR
                 .Create<Startup>(port: 15000)
                 .UseAutofac(Startup.LifetimeScope)
                 .UseRabbitMq(queueName: typeof(Program).Namespace)
-                .SubscribeToEvent<NextStatusSet>("nextstatusset")
-                .SubscribeToEvent<SetNewStatusRejected>("setnewstatusrejected")
+                .SubscribeToEvent<NextStatusSet>(exchangeName: "servicedesk.statusmanagementsystem.events", routingKey: "nextstatusset")
+                .SubscribeToEvent<SetNewStatusRejected>(exchangeName: "servicedesk.statusmanagementsystem.events", routingKey: "setnewstatusrejected")
                 .Build()
                 .Run();
         }
