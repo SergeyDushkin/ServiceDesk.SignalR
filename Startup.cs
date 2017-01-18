@@ -53,7 +53,14 @@ namespace servicedesk.SignalR
         public IServiceProvider ConfigureServices(IServiceCollection services)
         {
             //services.AddRouting();
-            services.AddCors();
+
+            services.AddCors(x => x.AddPolicy("corsGlobalPolicy", policy => {
+                policy.AllowAnyHeader();
+                policy.AllowAnyMethod();
+                policy.AllowAnyOrigin();
+                policy.AllowCredentials();
+            }));
+
             //services.AddSignalR();
             services.AddSignalR(options =>
             {
@@ -84,10 +91,8 @@ namespace servicedesk.SignalR
         {
             loggerFactory.AddNLog();
             env.ConfigureNLog("nlog.config");
-            app.UseCors(builder => builder.AllowAnyHeader()
-                .AllowAnyMethod()
-                .AllowAnyOrigin()
-                .AllowCredentials());
+
+            app.UseCors("corsGlobalPolicy");
 
             app.UseWebSockets();
             app.UseSignalR("/hub");
