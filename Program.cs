@@ -1,5 +1,5 @@
-﻿using Coolector.Common.Host;
-using servicedesk.Common.Events;
+﻿using servicedesk.Common.Events;
+using servicedesk.Common.Host;
 
 namespace servicedesk.SignalR
 {
@@ -11,8 +11,8 @@ namespace servicedesk.SignalR
                 .Create<Startup>(port: 15000)
                 .UseAutofac(Startup.LifetimeScope)
                 .UseRabbitMq(queueName: typeof(Program).Namespace)
-                .SubscribeToEvent<NextStatusSet>()
-                .SubscribeToEvent<SetNewStatusRejected>()
+                .SubscribeToEvent<NextStatusSet>("nextstatusset")
+                .SubscribeToEvent<SetNewStatusRejected>("setnewstatusrejected")
                 .Build()
                 .Run();
         }

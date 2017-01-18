@@ -11,15 +11,15 @@ using NLog;
 using NLog.Extensions.Logging;
 using RawRabbit.Configuration;
 
-using Coolector.Common.Commands;
-using Coolector.Common.Events;
-using Coolector.Common.Extensions;
 using Coolector.Common.RabbitMq;
 using Coolector.Common.Security;
-using Coolector.Common.Services;
 
 using servicedesk.SignalR.Hubs;
 using servicedesk.SignalR.Services;
+using servicedesk.Common.Services;
+using servicedesk.Common.Commands;
+using servicedesk.Common.Events;
+using Coolector.Common.Extensions;
 
 namespace servicedesk.SignalR
 {

@@ -1,11 +1,10 @@
 using System.Threading.Tasks;
-using Coolector.Common.Events;
 using Humanizer;
 using Microsoft.AspNetCore.SignalR;
-using servicedesk.Common.Events;
 using servicedesk.SignalR.Hubs;
 using NLog;
 using Microsoft.AspNetCore.SignalR.Infrastructure;
+using servicedesk.Common.Events;
 
 namespace servicedesk.SignalR.Services
 {

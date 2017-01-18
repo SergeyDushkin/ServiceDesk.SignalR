@@ -1,7 +1,6 @@
 using System.Threading.Tasks;
-using Coolector.Common.Events;
-using Coolector.Common.Services;
 using servicedesk.Common.Events;
+using servicedesk.Common.Services;
 using servicedesk.SignalR.Services;
 
 namespace servicedesk.SignalR.Handlers

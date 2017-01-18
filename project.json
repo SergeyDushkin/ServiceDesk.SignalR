@@ -41,7 +41,6 @@
     //"Humanizer.Core": "2.1.0",
     //"jose-jwt": "2.1.0",
     //"Lockbox.Client": "1.0.0",
-    
     "Coolector.Common": "1.0.*",
     "ServiceDesk.Common": "1.0.*"
   },
