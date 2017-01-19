@@ -95,7 +95,7 @@ namespace servicedesk.SignalR
             app.UseCors("corsGlobalPolicy");
 
             app.UseWebSockets();
-            app.UseSignalR("/signalr");
+            app.UseSignalR("/hub");
             
             //app.UseSignalR<RawConnection>("/signalr");
             //app.UseSignalR();
