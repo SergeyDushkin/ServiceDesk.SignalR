@@ -75,7 +75,9 @@ namespace servicedesk.SignalR
             builder.RegisterAssemblyTypes(assembly).AsClosedTypesOf(typeof(IEventHandler<>));
             builder.RegisterAssemblyTypes(assembly).AsClosedTypesOf(typeof(ICommandHandler<>));
             builder.RegisterType<Handler>().As<IHandler>();
+
             builder.RegisterType<StatusSignalRService>().As<IStatusSignalRService>();
+            builder.RegisterType<BaseSignalRService>().As<IBaseSignalRService>();
 
             //builder.RegisterType<JwtTokenHandler>().As<IJwtTokenHandler>();
 
