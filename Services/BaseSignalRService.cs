@@ -2,9 +2,8 @@ using System.Threading.Tasks;
 using Humanizer;
 using Microsoft.AspNetCore.SignalR;
 using servicedesk.SignalR.Hubs;
-using NLog;
-using Microsoft.AspNetCore.SignalR.Infrastructure;
 using servicedesk.Common.Events;
+using Microsoft.Extensions.Logging;
 
 namespace servicedesk.SignalR.Services
 {
@@ -16,31 +15,31 @@ namespace servicedesk.SignalR.Services
     
     public class BaseSignalRService : IBaseSignalRService
     {
-        private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
-        private readonly IHubContext<ServiceDeskHub> _hubContext;
+        private readonly ILogger logger;
+        private readonly IHubContext<ServiceDeskHub> hub;
 
-        //private readonly IHubContext _context;
-
-        public BaseSignalRService(IHubContext<ServiceDeskHub> hubContext, IConnectionManager connectionManager)
+        public BaseSignalRService(IHubContext<ServiceDeskHub> hubContext, ILogger<BaseSignalRService> logger)
         {
-            _hubContext = hubContext;
-            //_context = connectionManager.GetHubContext<ServiceDeskHub>();
+            this.logger = logger;
+            this.hub = hubContext;
         }
 
         public async Task PublishForAllClientsAsync(IEvent @event)
         {
-            await _hubContext.Clients.All.InvokeAsync(GetEventName(@event), @event);
-
-            Logger.Debug($"PublishForAllClients: {GetEventName(@event)}");
+            await hub.Clients.All.InvokeAsync(GetEventName(@event), @event);
+            
+            logger.LogDebug($"PublishForAllClients {GetEventName(@event)}: {ToJson(@event)}");
         }
         public async Task PublishForOneClientsAsync(IAuthenticatedEvent @event)
         {
-            await _hubContext.Clients.Client(@event.UserId).InvokeAsync(GetEventName(@event), @event);
+            await hub.Clients.Client(@event.UserId).InvokeAsync(GetEventName(@event), @event);
 
-            Logger.Debug($"PublishForOneClients: {GetEventName(@event)}");
+            logger.LogDebug($"PublishForOneClients {GetEventName(@event)}: {ToJson(@event)}");
         }
 
         private string GetEventName(IEvent @event) 
             => @event.GetType().Name.Humanize(LetterCasing.LowerCase).Underscore();
+        private string ToJson(IEvent @event) 
+            => Newtonsoft.Json.JsonConvert.SerializeObject(@event);
     }
 }
