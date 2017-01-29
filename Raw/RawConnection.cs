@@ -1,3 +1,4 @@
+/*
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.SignalR;
@@ -25,4 +26,4 @@ namespace servicedesk.SignalR.Hubs
             await base.OnDisconnected(request, connectionId, stopCalled);
         }
     }
-}
+}*/

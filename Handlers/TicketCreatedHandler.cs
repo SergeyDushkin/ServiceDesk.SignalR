@@ -21,6 +21,7 @@ namespace servicedesk.SignalR.Handlers
         {
             await handler
                 .Run(async () => await service.PublishForAllClientsAsync(@event))
+                .OnSuccess((logger) => logger.Debug("PublishForAllClientsAsync successed"))
                 .OnError((ex, logger) => logger.Error(ex, "Error during PublishForAllClientsAsync"))
                 .ExecuteAsync();
         }

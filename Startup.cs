@@ -61,11 +61,12 @@ namespace servicedesk.SignalR
                 policy.AllowCredentials();
             }));
 
-            //services.AddSignalR();
-            services.AddSignalR(options =>
-            {
-                options.Hubs.EnableDetailedErrors = true;
-            });
+            services.AddRouting();
+            services.AddSignalR();
+            //services.AddSignalR(options =>
+            //{
+            //    options.Hubs.EnableDetailedErrors = true;
+            //});
 
             var assembly = Assembly.GetEntryAssembly();
             var builder = new ContainerBuilder();
@@ -97,13 +98,14 @@ namespace servicedesk.SignalR
             app.UseCors("corsGlobalPolicy");
 
             app.UseWebSockets();
-            app.UseSignalR("/hub");
+            //app.UseSignalR("/hub");
+            app.UseSignalR(builder => builder.MapHub<ServiceDeskHub>("/hub"));
             
             //app.UseSignalR<RawConnection>("/signalr");
             //app.UseSignalR();
 
             //app.UseSignalR("/hub", typeof(ServiceDeskHub));
-            //app.UseSignalR(builder => builder.MapHub<ServiceDeskHub>("/hub"));
+            //
 
             appLifeTime.ApplicationStopped.Register(() => LifetimeScope.Dispose());
         }
